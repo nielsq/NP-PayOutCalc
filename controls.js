@@ -23,7 +23,7 @@ function setValues(public){
         items.set("Gold", 10000)
         items.set("Big Bag", 50000)
         items.set("Small Bag", 250)
-        items.set("Watch", 150)
+        items.set("Watch", 100)
         items.set("Cash", 1)
         items.set("Green Laptop", 10000)
         items.set("Blue Laptop", 25000)
@@ -32,11 +32,12 @@ function setValues(public){
         items.set("Thermite", 7000)
 
     } else {
+
         //Whitelist Server
         items.set("Gold", 5000)
         items.set("Big Bag", 50000)
         items.set("Small Bag", 250)
-        items.set("Watch", 150)
+        items.set("Watch", 50)
         items.set("Cash", 1)
         items.set("Green Laptop", 10000)
         items.set("Blue Laptop", 25000)
@@ -309,6 +310,7 @@ function addPayOut(){
 
                 var cardTitle = document.createElement("h4")
                 cardTitle.innerHTML = "Pay Out"
+                cardTitle.className ="title-payout"
 
             cardHead.appendChild(cardTitle)
 
@@ -829,5 +831,7 @@ function createMemberPayOut(){
        
 
     })
+
+    window.scrollTo(0,document.body.scrollHeight);
 
 }

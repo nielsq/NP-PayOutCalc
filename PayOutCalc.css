@@ -1,13 +1,47 @@
-.crew-member, .crew-invest, .crew-payout{
+.crew-member, .crew-invest, .crew-payout {
     
     max-width: 25%;
+}
 
+.ctl-card, .value-cardDeck{
+
+    margin-bottom: 15px;
+}
+
+.heist-values{
+    padding-left: 50px;
+}
+
+.heist-title{
+
+    margin-left: 40px;
+}
+
+.title-payout{
+
+    margin-top: 15px
+}
+
+.heist-setName {
+    
+    min-width: 40%;
+    margin: 40px;
 }
 
 .heist-payout{
     min-width: 100%;
+    margin-left: 1px;
+    margin-right: 1px;
+
 }
 
+.crew-PayOut{
+    margin: 10px
+}
+.heist-control{
+
+    padding-right: 40px;
+}
 .hidden{
 
     display: none;

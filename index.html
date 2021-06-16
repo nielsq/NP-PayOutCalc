@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="PayOutCalc.css" >
 
-    <title>Hello, world!</title>
+    <title>No-Pixel Heist Payout Caculator</title>
   </head>
   <body>
 
@@ -21,45 +21,49 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="controls.js" ></script>
 
-
+    <!-- Set Heist Name -->
     <div class="row">
-        <div class="col-sm-8">
+        <div id="ctl-createHeist" class="card heist-setName">
+            <div class="card-body">
+                <h6 class="card-title">Heist Name</h6>
+                <div class="input-group mb-3">
+                    <input id="input-heistName" type="text" class="form-control" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button onClick="setHeistName()" class="btn btn-primary" type="button">Set</button>
+                    </div>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input id="input-publicServer" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">Public Server</label>
+                  </div>
+            </div>
+        </div>
 
-            <h1 id="heistName"></h1>
-            <br>
-            <div id="dv-crew" class="row card-deck">
+        <h1 id="heistName" class="h1 heist-title"></h1>
+        
+    </div>
+    
+    
+    <div class="row">
+
+        <div class="col-sm-8 heist-values">
+
+            <div id="dv-crew" class="row card-deck value-cardDeck">
             </div>
-            <br>
-            <div id="dv-invest" class="row card-deck">
+
+            <div id="dv-invest" class="row card-deck value-cardDeck">
             </div>
-            <br>
-            <div id="dv-payout" class="row">    
+
+            <div id="dv-payout" class="row value-cardDeck heist-payout">    
             </div>
-            <br>
 
            
         </div>
 
+        <div class="col-sm-4 heist-control">
 
-        <div class="col-sm-4">
-
-            <div id="ctl-createHeist" class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Heist Name</h6>
-                    <div class="input-group mb-3">
-                        <input id="input-heistName" type="text" class="form-control" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <button onClick="setHeistName()" class="btn btn-primary" type="button">Set</button>
-                        </div>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input id="input-publicServer" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                        <label class="form-check-label" for="inlineCheckbox1">Public Server</label>
-                      </div>
-                </div>
-            </div>
-            <br>
-            <div id="ctl-addMemeber" class="card hidden">
+            
+            <div id="ctl-addMemeber" class="card hidden ctl-card">
                 <div class="card-body">
                     <h6 class="card-title">Add Crew Member</h6>
 
@@ -80,8 +84,8 @@
                     <button type="button" onclick="addCrewMember();" class="btn btn-primary">Add</button>
                 </div>
             </div>
-            <br>
-            <div id="ctl-addInvest"class="card hidden">
+            
+            <div id="ctl-addInvest"class="card hidden ctl-card">
                 <div class="card-body">
                     <h6 class="card-title">Invest</h6>
                     <div class="input-group mb-3">
@@ -120,8 +124,8 @@
 
                 </div>
             </div>
-            <br>
-            <div id="ctl-addPayOut"class="card hidden">
+           
+            <div id="ctl-addPayOut"class="card hidden ctl-card">
                 <div class="card-body">
                     <h6 class="card-title">Pay Out</h6>
 
@@ -150,8 +154,8 @@
 
                 </div>
             </div>
-            <br>
-            <div id="ctl-calcPayOut" class="card hidden">
+            
+            <div id="ctl-calcPayOut" class="card hidden ctl-card">
                 <div class="card-body">
                     <h6 class="card-title">Calc Pay Out</h6>
                     <button type="button" onclick="calcProportion()" class="btn btn-primary">Calc</button>
@@ -162,14 +166,15 @@
 
     </div>
 
-
-    <div id="dv-split" class="row card-deck">
+    <div id="row" class="crew-PayOut">
+        <div id="dv-split" class="card-deck">
+        </div>
     </div>
 
-      
+    <script src="autofill.js" ></script>
     
     <!--
-<script src="autofill.js" ></script>
+
         
     -->
 </body>
