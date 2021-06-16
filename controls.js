@@ -116,7 +116,7 @@ function addCrewMember(){
 
     var cardRMButton = document.createElement("button")
     cardRMButton.type = "button"
-    cardRMButton.className = "btn btn-warning"
+    cardRMButton.className = "btn btn-warning btn-sm"
     cardRMButton.innerHTML = "remove"
     cardRMButton.setAttribute("onclick", "removeCrewMember('"+name+"');");
     
@@ -213,17 +213,17 @@ function addInvest(){
 
         var cardSubtitle = document.createElement("h6")
         cardSubtitle.className = "card-subtitle mb-2 text-muted"
-        cardSubtitle.innerHTML = item +" - " + value
+        cardSubtitle.innerHTML = item +" - " + value + "$"
 
         cardSubList.appendChild(cardSubtitle)
 
         var cardNote = document.createElement("p")
-        cardNote.id = "investSum-" + name
-        cardNote.innerHTML= obj.investSum
+        cardNote.id = "investSum-" + name 
+        cardNote.innerHTML= obj.investSum + "$"
 
         var cardRMButton = document.createElement("button")
         cardRMButton.type = "button"
-        cardRMButton.className = "btn btn-warning"
+        cardRMButton.className = "btn btn-warning btn-sm"
         cardRMButton.innerHTML = "remove"
         cardRMButton.setAttribute("onclick", "removeInvest('"+name+"');");
 
@@ -245,7 +245,7 @@ function addInvest(){
         //create item for list
         var cardSubtitle = document.createElement("h6")
         cardSubtitle.className = "card-subtitle mb-2 text-muted"
-        cardSubtitle.innerHTML = item +" - " + value
+        cardSubtitle.innerHTML = item +" - " + value + "$"
 
         //adding item to list
         var investList = document.getElementById("investList-" + name)
@@ -253,7 +253,7 @@ function addInvest(){
 
         //changing current sum 
         var investSumP = document.getElementById("investSum-" + name)
-        investSumP.innerHTML = obj.investSum
+        investSumP.innerHTML = obj.investSum + "$"
 
     }
 
@@ -408,7 +408,7 @@ function addPayOut(){
     trowNew.appendChild(td2)
 
         var td3 = document.createElement("td")
-        td3.innerHTML = count * items.get(item)
+        td3.innerHTML = count * items.get(item) + "$"
         td3.id = "payOutSum-" + (heist.count + 1)
 
     trowNew.appendChild(td3)
@@ -781,41 +781,41 @@ function createMemberPayOut(){
         if(values["Big Bag"] > 0){
             var cardSubtitleBB = document.createElement("h6")
             cardSubtitleBB.className = "card-subtitle mb-2 text-muted"
-            cardSubtitleBB.innerHTML = values["Big Bag"] + "x Big Bags - " + (values["Big Bag"] * items.get("Big Bag"))
+            cardSubtitleBB.innerHTML = values["Big Bag"] + "x Big Bags - " + (values["Big Bag"] * items.get("Big Bag")) + "$"
             cardSubList.appendChild(cardSubtitleBB)
         }
 
         if(values["Gold"] > 0){
             var cardSubtitleG = document.createElement("h6")
             cardSubtitleG.className = "card-subtitle mb-2 text-muted"
-            cardSubtitleG.innerHTML = values["Gold"] + "x Gold - " + (values["Gold"] * items.get("Gold"))
+            cardSubtitleG.innerHTML = values["Gold"] + "x Gold - " + (values["Gold"] * items.get("Gold")) + "$"
             cardSubList.appendChild(cardSubtitleG)
         }
 
         if(values["Small Bag"] > 0){
             var cardSubtitleSB = document.createElement("h6")
             cardSubtitleSB.className = "card-subtitle mb-2 text-muted"
-            cardSubtitleSB.innerHTML = values["Small Bag"] + "x Small Bags - " + (values["Small Bag"] * items.get("Small Bag"))
+            cardSubtitleSB.innerHTML = values["Small Bag"] + "x Small Bags - " + (values["Small Bag"] * items.get("Small Bag")) + "$"
             cardSubList.appendChild(cardSubtitleSB)
         }
 
         if(values["Watch"] > 0){
             var cardSubtitleW = document.createElement("h6")
             cardSubtitleW.className = "card-subtitle mb-2 text-muted"
-            cardSubtitleW.innerHTML = values["Watch"] + "x Watches - " + (values["Watch"] * items.get("Watch"))
+            cardSubtitleW.innerHTML = values["Watch"] + "x Watches - " + (values["Watch"] * items.get("Watch")) + "$"
             cardSubList.appendChild(cardSubtitleW)
         }
 
         if(values["Cash"] > 0){
             var cardSubtitleW = document.createElement("h6")
             cardSubtitleW.className = "card-subtitle mb-2 text-muted"
-            cardSubtitleW.innerHTML = values["Cash"] + " Cash"
+            cardSubtitleW.innerHTML = values["Cash"] + "$ Cash"
             cardSubList.appendChild(cardSubtitleW)
         }
 
         var cardNote = document.createElement("p")
         cardNote.id = "investSum-" + keys
-        cardNote.innerHTML= "Sum: " + values.sum
+        cardNote.innerHTML= "Sum: " + values.sum + "$"
 
 
 

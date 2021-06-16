@@ -1,11 +1,6 @@
-.crew-member, .crew-invest, .crew-payout {
-    
-    max-width: 25%;
-}
-
 .ctl-card, .value-cardDeck{
 
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .heist-values{
@@ -31,7 +26,7 @@
 .heist-payout{
     min-width: 100%;
     margin-left: 1px;
-    margin-right: 1px;
+    padding-right: 7px !important; 
 
 }
 
@@ -45,4 +40,9 @@
 .hidden{
 
     display: none;
+} 
+
+.row{
+    /* wired horizontel scoll bar fix*/
+    margin-right: 0px;
 }
