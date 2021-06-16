@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="PayOutCalc.css" >
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="controls.js" ></script>
+
+
+    <div class="row">
+        <div class="col-sm-8">
+
+            <h1 id="heistName"></h1>
+            <br>
+            <div id="dv-crew" class="row card-deck">
+            </div>
+            <br>
+            <div id="dv-invest" class="row card-deck">
+            </div>
+            <br>
+            <div id="dv-payout" class="row">    
+            </div>
+            <br>
+
+           
+        </div>
+
+
+        <div class="col-sm-4">
+
+            <div id="ctl-createHeist" class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Heist Name</h6>
+                    <div class="input-group mb-3">
+                        <input id="input-heistName" type="text" class="form-control" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button onClick="setHeistName()" class="btn btn-primary" type="button">Set</button>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input id="input-publicServer" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">Public Server</label>
+                      </div>
+                </div>
+            </div>
+            <br>
+            <div id="ctl-addMemeber" class="card hidden">
+                <div class="card-body">
+                    <h6 class="card-title">Add Crew Member</h6>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                        </div>
+                        <input id="input-AddCrewMember-name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
+                        </div>
+                        <input id="input-AddCrewMember-position" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                          
+                    <button type="button" onclick="addCrewMember();" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+            <br>
+            <div id="ctl-addInvest"class="card hidden">
+                <div class="card-body">
+                    <h6 class="card-title">Invest</h6>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Player</label>
+                        </div>
+                        <select id="input-Invest-crewMember" class="custom-select" id="inputGroupSelect01">
+                            <option selected >Choose</option>
+
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select id="input-Invest-item" class="custom-select" id="inputGroupSelect01">
+                          <option selected >Choose</option>
+                          <option>Green Laptop</option>
+                          <option>Blue Laptop</option>
+                          <option>Red Laptop</option>
+                          <option>Golden Laptop</option>
+                          <option>Thermite</option>
+                          <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Value</span>
+                        </div>
+                        <input id="input-Invest-value" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <button type="button" onclick="addInvest();" class="btn btn-primary">Add</button>
+
+                </div>
+            </div>
+            <br>
+            <div id="ctl-addPayOut"class="card hidden">
+                <div class="card-body">
+                    <h6 class="card-title">Pay Out</h6>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Item</label>
+                        </div>
+                        <select id="input-PayOut-item" class="custom-select" id="inputGroupSelect01">
+                          <option selected >Choose</option>
+                          <option>Cash</option>
+                          <option>Big Bag</option>
+                          <option>Small Bag</option>
+                          <option>Gold</option>
+                          <option>Watch</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Count</span>
+                        </div>
+                        <input id="input-PayOut-count" type="number" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <button type="button" onclick="addPayOut();" class="btn btn-primary">Add</button>
+
+                </div>
+            </div>
+            <br>
+            <div id="ctl-calcPayOut" class="card hidden">
+                <div class="card-body">
+                    <h6 class="card-title">Calc Pay Out</h6>
+                    <button type="button" onclick="calcProportion()" class="btn btn-primary">Calc</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="dv-split" class="row card-deck">
+    </div>
+
+      
+    <script src="autofill.js" ></script>
+    <!--
+
+        
+    -->
+</body>
+</html>

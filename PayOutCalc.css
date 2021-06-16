@@ -1,0 +1,14 @@
+.crew-member, .crew-invest, .crew-payout{
+    
+    max-width: 25%;
+
+}
+
+.heist-payout{
+    min-width: 100%;
+}
+
+.hidden{
+
+    display: none;
+}
