@@ -1,6 +1,8 @@
 
 var items = new Map()
 var crew = new Map()
+var calcCrew
+var calcHeist
 var heist = {
     name :"",
     hasPayOut: false,
@@ -194,7 +196,7 @@ function addInvest(){
 
     if(obj.investItems.length == 0){
         obj.investItems[0] = item
-        obj.investSum =  value
+        obj.investSum =  parseInt(value)
 
         var newCard = document.createElement("div")
         newCard.className = "card crew-invest"
@@ -454,55 +456,65 @@ function removePayOut(pos){
 
 function calcProportion(){
 
-    crew.forEach((values,keys)=>{
+    calcCrew = new Map(crew)
+
+    calcCrew.forEach((values,keys)=>{
+
+        calcCrew.set(keys,Object.assign({},values))
+    })
+
+    calcHeist = Object.assign({},heist)
+
+
+    calcCrew.forEach((values,keys)=>{
 
         //Calc investet Sums
-        while(values.investSum > 0 && ( heist["Big Bag"] > 0 ||  heist["Gold"] > 0 ||  heist["Small Bag"] > 0 ||  heist["Watch"] > 0 ||  heist["Cash"] > 0)){
+        while(values.investSum > 0 && ( calcHeist["Big Bag"] > 0 ||  calcHeist["Gold"] > 0 ||  calcHeist["Small Bag"] > 0 ||  calcHeist["Watch"] > 0 ||  calcHeist["Cash"] > 0)){
 
-            if(values.investSum >= items.get("Big Bag") && heist["Big Bag"] > 0 ){
+            if(values.investSum >= items.get("Big Bag") && calcHeist["Big Bag"] > 0 ){
 
-                heist["Big Bag"] = heist["Big Bag"] -1
+                calcHeist["Big Bag"] = calcHeist["Big Bag"] -1
                 values.investSum = values.investSum - items.get("Big Bag")
-                heist.sum = heist.sum - items.get("Big Bag")
+                calcHeist.sum = calcHeist.sum - items.get("Big Bag")
                 values["Big Bag"] = values["Big Bag"] +1
                 values.sum = values.sum + items.get("Big Bag")
-                crew.set(keys,values)
+                calcCrew.set(keys,values)
 
-            } else if(values.investSum >= items.get("Gold") &&  heist["Gold"] > 0 ) {
+            } else if(values.investSum >= items.get("Gold") &&  calcHeist["Gold"] > 0 ) {
 
-                heist["Gold"] = heist["Gold"] -1
+                calcHeist["Gold"] = calcHeist["Gold"] -1
                 values.investSum = values.investSum - items.get("Gold") 
-                heist.sum = heist.sum - items.get("Gold") 
+                calcHeist.sum = calcHeist.sum - items.get("Gold") 
                 values["Gold"] = values["Gold"] +1
                 values.sum = values.sum + items.get("Gold")
-                crew.set(keys,values)
+                calcCrew.set(keys,values)
                             
-            } else if(values.investSum >= items.get("Small Bag")   &&  heist["Small Bag"] > 0 ) {
+            } else if(values.investSum >= items.get("Small Bag")   &&  calcHeist["Small Bag"] > 0 ) {
 
-                heist["Small Bag"] = heist["Small Bag"] -1
+                calcHeist["Small Bag"] = calcHeist["Small Bag"] -1
                 values.investSum = values.investSum - items.get("Small Bag")
-                heist.sum = heist.sum - items.get("Small Bag")
+                calcHeist.sum = calcHeist.sum - items.get("Small Bag")
                 values["Small Bag"] = values["Small Bag"] +1
                 values.sum = values.sum + items.get("Small Bag")
-                crew.set(keys,values)
+                calcCrew.set(keys,values)
 
-            } else if(values.investSum >= items.get("Watch")   &&  heist["Watch"] > 0 ) {
+            } else if(values.investSum >= items.get("Watch")   &&  calcHeist["Watch"] > 0 ) {
 
-                heist["Watch"] = heist["Watch"] -1
+                calcHeist["Watch"] = calcHeist["Watch"] -1
                 values.investSum = values.investSum - items.get("Watch")
-                heist.sum = heist.sum - items.get("Watch")
+                calcHeist.sum = calcHeist.sum - items.get("Watch")
                 values["Watch"] = values["Watch"] +1
                 values.sum = values.sum + items.get("Watch")
-                crew.set(keys,values)
+                calcCrew.set(keys,values)
 
-            } else if(values.investSum >= items.get("Cash")  &&  heist["Cash"] > 0 ) {
+            } else if(values.investSum >= items.get("Cash")  &&  calcHeist["Cash"] > 0 ) {
 
-                heist["Cash"] = heist["Cash"] -1
+                calcHeist["Cash"] = calcHeist["Cash"] -1
                 values.investSum = values.investSum - items.get("Cash") 
-                heist.sum = heist.sum - items.get("Cash") 
+                calcHeist.sum = calcHeist.sum - items.get("Cash") 
                 values["Cash"] = values["Cash"] +1
                 values.sum = values.sum + items.get("Cash")
-                crew.set(keys,values)
+                calcCrew.set(keys,values)
             } 
             
         }
@@ -510,19 +522,19 @@ function calcProportion(){
     })
 
     //Sharing Big Bags
-    while(heist["Big Bag"] > 0){
+    while(calcHeist["Big Bag"] > 0){
 
-        crew.forEach((values,keys)=>{
+        calcCrew.forEach((values,keys)=>{
 
-            if(heist["Big Bag"] == 0){
+            if(calcHeist["Big Bag"] == 0){
 
                 var tempSum = 0;
                                                  
-                while(heist["Gold"] > 0 && tempSum < items.get("Big Bag")){
+                while(calcHeist["Gold"] > 0 && tempSum < items.get("Big Bag")){
 
    
-                    heist["Gold"] = heist["Gold"] - 1
-                    heist.sum = heist.sum - items.get("Gold")
+                    calcHeist["Gold"] = calcHeist["Gold"] - 1
+                    calcHeist.sum = calcHeist.sum - items.get("Gold")
 
                     values["Gold"] = values["Gold"] +1
                     values.sum = values.sum + items.get("Gold")
@@ -531,11 +543,11 @@ function calcProportion(){
 
                 }
 
-                while(heist["Small Bag"] > 0 && tempSum < items.get("Big Bag")){
+                while(calcHeist["Small Bag"] > 0 && tempSum < items.get("Big Bag")){
 
                     
-                    heist["Small Bag"] = heist["Small Bag"] -1
-                    heist.sum = heist.sum - items.get("Small Bag")
+                    calcHeist["Small Bag"] = calcHeist["Small Bag"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Small Bag")
 
                     values["Small Bag"] = values["Small Bag"] + 1
                     values.sum = values.sum + items.get("Small Bag")
@@ -543,11 +555,11 @@ function calcProportion(){
                     tempSum = tempSum+ items.get("Small Bag")
                 }
 
-                while(heist["Watch"] > 0 && tempSum < items.get("Big Bag")){
+                while(calcHeist["Watch"] > 0 && tempSum < items.get("Big Bag")){
 
                     
-                    heist["Watch"] = heist["Watch"] -1
-                    heist.sum = heist.sum - items.get("Watch")
+                    calcHeist["Watch"] = calcHeist["Watch"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Watch")
 
                     values["Watch"] = values["Watch"] +1
                     values.sum = values.sum + items.get("Watch")
@@ -555,11 +567,11 @@ function calcProportion(){
                     tempSum = tempSum + items.get("Watch")
                 }
 
-                while(heist["Cash"] > 0 && tempSum < items.get("Big Bag")){
+                while(calcHeist["Cash"] > 0 && tempSum < items.get("Big Bag")){
 
                     
-                    heist["Cash"] = heist["Cash"] -1
-                    heist.sum = heist.sum - items.get("Cash")
+                    calcHeist["Cash"] = calcHeist["Cash"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Cash")
 
                     values["Cash"] = values["Cash"] +1
                     values.sum = values.sum + items.get("Cash")
@@ -570,34 +582,35 @@ function calcProportion(){
                
             } else {
                 
-                heist["Big Bag"] = heist["Big Bag"] - 1
-                heist.sum = heist.sum - items.get("Big Bag")
+                calcHeist["Big Bag"] = calcHeist["Big Bag"] - 1
+                calcHeist.sum = calcHeist.sum - items.get("Big Bag")
 
                 values["Big Bag"] = values["Big Bag"] +1 
                 values.sum = values.sum + items.get("Big Bag")
 
             }
 
-            crew.set(keys,values)
+            calcCrew.set(keys,values)
 
         })
 
     }
+    
 
     //Sharing Gold
-    while(heist["Gold"] > 0){
+    while(calcHeist["Gold"] > 0){
 
-        crew.forEach((values,keys)=>{
+        calcCrew.forEach((values,keys)=>{
 
-            if(heist["Gold"] == 0){
+            if(calcHeist["Gold"] == 0){
 
                 var tempSum = 0;
               
 
-                while(heist["Small Bag"] > 0 && tempSum < items.get("Gold")){
+                while(calcHeist["Small Bag"] > 0 && tempSum < items.get("Gold")){
 
-                    heist["Small Bag"] = heist["Small Bag"] -1
-                    heist.sum = heist.sum - items.get("Small Bag")
+                    calcHeist["Small Bag"] = calcHeist["Small Bag"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Small Bag")
 
                     values["Small Bag"] = values["Small Bag"] + 1
                     values.sum = values.sum + items.get("Small Bag")
@@ -605,11 +618,11 @@ function calcProportion(){
                     tempSum = tempSum+ items.get("Small Bag")
                 }
 
-                while(heist["Watch"] > 0 && tempSum < items.get("Gold")){
+                while(calcHeist["Watch"] > 0 && tempSum < items.get("Gold")){
 
                     
-                    heist["Watch"] = heist["Watch"] -1
-                    heist.sum = heist.sum - items.get("Watch")
+                    calcHeist["Watch"] = calcHeist["Watch"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Watch")
 
                     values["Watch"] = values["Watch"] +1
                     values.sum = values.sum + items.get("Watch")
@@ -617,10 +630,10 @@ function calcProportion(){
                     tempSum = tempSum + items.get("Watch")
                 }
 
-                while(heist["Cash"] > 0 && tempSum < items.get("Gold")){
+                while(calcHeist["Cash"] > 0 && tempSum < items.get("Gold")){
 
-                    heist["Cash"] = heist["Cash"] -1
-                    heist.sum = heist.sum - items.get("Cash")
+                    calcHeist["Cash"] = calcHeist["Cash"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Cash")
 
                     values["Cash"] = values["Cash"] +1
                     values.sum = values.sum + items.get("Cash")
@@ -631,33 +644,35 @@ function calcProportion(){
                
             } else {
 
-                heist["Gold"] = heist["Gold"] - 1
-                heist.sum = heist.sum - items.get("Gold")
+                calcHeist["Gold"] = calcHeist["Gold"] - 1
+                calcHeist.sum = calcHeist.sum - items.get("Gold")
 
                 values["Gold"] = values["Gold"] +1 
                 values.sum = values.sum + items.get("Gold")
 
             }
 
-            crew.set(keys,values)
+            calcCrew.set(keys,values)
 
         })
 
     }
 
+     
+
     //Sharing Small Bags
-    while(heist["Small Bag"] > 0){
+    while(calcHeist["Small Bag"] > 0){
 
-        crew.forEach((values,keys)=>{
+        calcCrew.forEach((values,keys)=>{
 
-            if(heist["Small Bag"] == 0){
+            if(calcHeist["Small Bag"] == 0){
 
                 var tempSum = 0;
-                while(heist["Watch"] > 0 && tempSum < items.get("Small Bag")){
+                while(calcHeist["Watch"] > 0 && tempSum < items.get("Small Bag")){
 
                     
-                    heist["Watch"] = heist["Watch"] -1
-                    heist.sum = heist.sum - items.get("Watch")
+                    calcHeist["Watch"] = calcHeist["Watch"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Watch")
 
                     values["Watch"] = values["Watch"] +1
                     values.sum = values.sum + items.get("Watch")
@@ -665,10 +680,10 @@ function calcProportion(){
                     tempSum = tempSum + items.get("Watch")
                 }
 
-                while(heist["Cash"] > 0 && tempSum < items.get("Small Bag")){
+                while(calcHeist["Cash"] > 0 && tempSum < items.get("Small Bag")){
 
-                    heist["Cash"] = heist["Cash"] -1
-                    heist.sum = heist.sum - items.get("Cash")
+                    calcHeist["Cash"] = calcHeist["Cash"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Cash")
 
                     values["Cash"] = values["Cash"] +1
                     values.sum = values.sum + items.get("Cash")
@@ -679,15 +694,15 @@ function calcProportion(){
                
             } else {
 
-                heist["Small Bag"] = heist["Small Bag"] - 1
-                heist.sum = heist.sum - items.get("Small Bag")
+                calcHeist["Small Bag"] = calcHeist["Small Bag"] - 1
+                calcHeist.sum = calcHeist.sum - items.get("Small Bag")
 
                 values["Small Bag"] = values["Small Bag"] +1 
                 values.sum = values.sum + items.get("Small Bag")
 
             }
 
-            crew.set(keys,values)
+            calcCrew.set(keys,values)
 
         })
 
@@ -695,19 +710,20 @@ function calcProportion(){
 
     }
 
+   
     //Sharing Watches
-    while(heist["Watch"] > 0){
+    while(calcHeist["Watch"] > 0){
 
-        crew.forEach((values,keys)=>{
+        calcCrew.forEach((values,keys)=>{
 
-            if(heist["Watch"] == 0){
+            if(calcHeist["Watch"] == 0){
 
                 var tempSum = 0;
               
-                while(heist["Cash"] > 0 && tempSum < items.get("Watch")){
+                while(calcHeist["Cash"] > 0 && tempSum < items.get("Watch")){
 
-                    heist["Cash"] = heist["Cash"] -1
-                    heist.sum = heist.sum - items.get("Cash")
+                    calcHeist["Cash"] = calcHeist["Cash"] -1
+                    calcHeist.sum = calcHeist.sum - items.get("Cash")
 
                     values["Cash"] = values["Cash"] +1
                     values.sum = values.sum + items.get("Cash")
@@ -718,15 +734,15 @@ function calcProportion(){
                
             } else {
 
-                heist["Watch"] = heist["Watch"] -1
-                heist.sum = heist.sum - items.get("Watch")
+                calcHeist["Watch"] = calcHeist["Watch"] -1
+                calcHeist.sum = calcHeist.sum - items.get("Watch")
 
                 values["Watch"] = values["Watch"] +1
                 values.sum = values.sum + items.get("Watch")
 
             }
 
-            crew.set(keys,values)
+            calcCrew.set(keys,values)
 
         })
 
@@ -734,34 +750,38 @@ function calcProportion(){
 
     }
 
+    
     //Sharing Cash
-    while(heist["Cash"] > 0){
+    while(calcHeist["Cash"] > 0){
 
-        crew.forEach((values,keys)=>{
+        calcCrew.forEach((values,keys)=>{
 
-            if(heist["Cash"] != 0){
+            if(calcHeist["Cash"] != 0){
 
-                heist["Cash"] = heist["Cash"] -1
-                heist.sum = heist.sum - items.get("Cash")
+                calcHeist["Cash"] = calcHeist["Cash"] -1
+                calcHeist.sum = calcHeist.sum - items.get("Cash")
     
                 values["Cash"] = values["Cash"] + 1
                 values.sum = values.sum + items.get("Cash")
                 
             }
 
-            crew.set(keys,values)
+            calcCrew.set(keys,values)
 
         })
 
     }
 
     createMemberPayOut()
-    /* */
+     
 }
 
 function createMemberPayOut(){
 
-    crew.forEach((values,keys)=>{
+    var main = document.getElementById("dv-split")
+    main.innerHTML = ""
+
+    calcCrew.forEach((values,keys)=>{
 
         var newCard = document.createElement("div")
         newCard.className = "card crew-payout"
@@ -833,5 +853,13 @@ function createMemberPayOut(){
     })
 
     window.scrollTo(0,document.body.scrollHeight);
+
+}
+
+function valueAutoFill(){
+
+    var item = document.getElementById("input-Invest-item").options[document.getElementById("input-Invest-item").selectedIndex].text;
+    var value = items.get(item)
+    document.getElementById("input-Invest-value").value = parseInt(value);
 
 }
