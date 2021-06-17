@@ -79,3 +79,5 @@ document.getElementById("input-PayOut-item").value = "Small Bag"
 document.getElementById("input-PayOut-count").value = 350
 addPayOut();
 
+
+calcProportion()
