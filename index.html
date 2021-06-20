@@ -43,8 +43,11 @@
         <h1 id="heistName" class="h1 heist-title"></h1>
         
     </div>
+
+    <!--Show hide Buttons -->
+
     
-    
+    <!-- Actul values -->
     <div class="row">
 
         <div class="col-sm-8 heist-values">
@@ -56,6 +59,9 @@
             </div>
 
             <div id="dv-payout" class="heist-payout row value-cardDeck ">    
+            </div>
+
+            <div id="dv-split" class="card-deck">
             </div>
 
            
@@ -134,7 +140,7 @@
                         <div class="input-group-prepend">
                           <label class="input-group-text" for="inputGroupSelect01">Item</label>
                         </div>
-                        <select id="input-PayOut-item" class="custom-select" id="inputGroupSelect01">
+                        <select id="input-PayOut-item" class="custom-select" onchange="removeCount();" id="inputGroupSelect01">
                           <option selected >Choose</option>
                           <option>Cash</option>
                           <option>Big Bag</option>
@@ -163,18 +169,31 @@
                 </div>
             </div>
 
+            <div id="ctl-screenShot" class="card ctl-card hidden">
+                <div class="card-body">
+                    <h6 class="card-title">Overview for Screenshot</h6>
+                    <button type="button" onclick="createOverview()" class="btn btn-success">Create</button>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
-    <div id="row" class="crew-PayOut">
-        <div id="dv-split" class="card-deck">
-        </div>
+    <!-- Pay Out overview (for screenshots) -->
+
+    <br>
+    <hr>
+
+    <h2 class="text-center hidden" id="overview-title">Heist summary</h2>
+
+    <div id="overview" class="row card-deck" style="padding: 40px; padding-top: 20px;">
+        
     </div>
 
-    
+
     <!--
-        <script src="autofill.js" ></script>
+      <script src="autofill.js" ></script>
     -->
 </body>
 </html>

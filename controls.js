@@ -13,6 +13,7 @@ var heist = {
     "Cash": 0,
     "Gold": 0,
     "Watch": 0,
+    server:""
 
 }
 
@@ -57,17 +58,18 @@ function setHeistName(){
     document.getElementById("ctl-createHeist").classList.add("hidden")
     var publicServer = document.getElementById("input-publicServer").checked
 
-
     if(publicServer){
         document.getElementById("heistName").innerHTML = document.getElementById("input-heistName").value + " - Public Server"
         
         setValues(publicServer)
-
+        heist.server = "Public Server"
     } else {
         document.getElementById("heistName").innerHTML = document.getElementById("input-heistName").value + " - Whitelist Server"
  
         setValues(publicServer)
+        heist.server = "Whitelist Server"
     }
+
     
 
 }
@@ -135,6 +137,7 @@ function addCrewMember(){
 
     document.getElementById("ctl-addInvest").classList.remove("hidden");
     document.getElementById("ctl-addPayOut").classList.remove("hidden");
+    
 
     //add to selection
     var investPlayerSelection = document.getElementById("input-Invest-crewMember")
@@ -780,6 +783,7 @@ function createMemberPayOut(){
 
     var main = document.getElementById("dv-split")
     main.innerHTML = ""
+    document.getElementById("ctl-screenShot").classList.remove("hidden");
 
     calcCrew.forEach((values,keys)=>{
 
@@ -861,5 +865,205 @@ function valueAutoFill(){
     var item = document.getElementById("input-Invest-item").options[document.getElementById("input-Invest-item").selectedIndex].text;
     var value = items.get(item)
     document.getElementById("input-Invest-value").value = parseInt(value);
+
+}
+
+function removeCount(){
+
+    document.getElementById("input-PayOut-count").value = null
+
+} 
+
+function createOverview(){
+
+    document.getElementById("overview-title").classList.remove("hidden");
+
+    var main = document.getElementById("overview")
+    main.innerHTML = ""
+
+    var heistInvestSum = 0;
+    var heistInvestedItems = []
+    var crewArr = []
+    var heistPayOutItems = []
+
+    var OverviewDiv = document.getElementById("overview")
+
+    if(heist["Big Bag"] > 0){
+        heistPayOutItems.push("Big Bag")
+    }
+    if(heist["Gold"] > 0){
+        heistPayOutItems.push("Gold")
+    }
+    if(heist["Small Bag"] > 0){
+        heistPayOutItems.push("Small Bag")
+    }
+    if(heist["Watch"] > 0){
+        heistPayOutItems.push("Watch")
+    }
+    if(heist["Cash"] > 0){
+        heistPayOutItems.push("Cash")
+    }
+
+    crew.forEach((values,keys)=>{
+
+        heistInvestSum += values.investSum;
+        crewArr.push(keys)
+        values.investItems.forEach((element)=>{
+
+            if(!heistInvestedItems.includes(element)){
+                heistInvestedItems.push(element)
+            }
+        })
+        
+    })
+
+    var newCard = document.createElement("div")
+    newCard.className = "card crew-member"
+    newCard.style = "width: 18rem"
+    newCard.id = "heist-Overview"
+
+    var cardBody = document.createElement("div")
+    cardBody.className = "card-body"
+
+    var cardTitle = document.createElement("h4")
+    cardTitle.className = "card-title"
+    cardTitle.innerHTML =  heist.name 
+
+    var cardSubtitle6 = document.createElement("h5")
+    cardSubtitle6.className = "card-subtitle mb-2 fw-bold"
+    cardSubtitle6.innerHTML = "Calculated by AFKspezi´s NP-PayOutCalc"
+    
+    var cardSubtitle0 = document.createElement("h6")
+    cardSubtitle0.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle0.innerHTML = "Server: " + heist.server
+
+    var cardSubtitle1 = document.createElement("h6")
+    cardSubtitle1.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle1.innerHTML = "Invested Sum: " + heistInvestSum + "$"
+
+    var cardSubtitle2 = document.createElement("h6")
+    cardSubtitle2.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle2.innerHTML = "Invested Items: " + heistInvestedItems.join(", ")
+
+    var cardSubtitle3 = document.createElement("h6")
+    cardSubtitle3.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle3.innerHTML = "Payout: " + heist.sum +  "$"
+
+    var cardSubtitle4 = document.createElement("h6")
+    cardSubtitle4.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle4.innerHTML = "Payout Items: " + heistPayOutItems.join(", ")
+
+    var cardSubtitle5 = document.createElement("h6")
+    cardSubtitle5.className = "card-subtitle mb-2 text-muted"
+    cardSubtitle5.innerHTML = "Crew: " + crewArr.join(", ")
+
+
+
+    cardBody.appendChild(cardTitle)
+    cardBody.appendChild(cardSubtitle6)
+    cardBody.appendChild(cardSubtitle0)
+    cardBody.appendChild(cardSubtitle1)
+    cardBody.appendChild(cardSubtitle2)
+    cardBody.appendChild(cardSubtitle3)
+    cardBody.appendChild(cardSubtitle4)
+    cardBody.appendChild(cardSubtitle5)
+
+    
+    newCard.appendChild(cardBody)
+
+    OverviewDiv.appendChild(newCard)
+
+    crew.forEach((values,keys)=>{
+
+        var crewInvestedItems = []
+
+        values.investItems.forEach((element)=>{
+
+            if(!crewInvestedItems.includes(element)){
+                crewInvestedItems.push(element)
+            }
+        })
+
+        var newCard = document.createElement("div")
+        newCard.className = "card crew-member"
+        newCard.style = "width: 18rem"
+        newCard.id = "heist-Overview"
+
+        var cardBody = document.createElement("div")
+        cardBody.className = "card-body"
+
+        var cardTitle = document.createElement("h4")
+        cardTitle.className = "card-title"
+        cardTitle.innerHTML = keys
+    
+        var cardSubtitle0 = document.createElement("h6")
+        cardSubtitle0.className = "card-subtitle mb-2 text-muted"
+        cardSubtitle0.innerHTML = "Invested Sum: " + values.investSum  +"$"
+
+        var cardSubtitle1 = document.createElement("h6")
+        cardSubtitle1.className = "card-subtitle mb-2 text-muted"
+        cardSubtitle1.innerHTML = "Invested Items: " + crewInvestedItems.join(", ")
+
+        var cardSubtitle2 = document.createElement("h6")
+        cardSubtitle2.className = "card-subtitle mb-2 text-muted"
+        cardSubtitle2.innerHTML = "Payout sum: " + calcCrew.get(keys).sum +"$"
+
+        var cardSubtitle3 = document.createElement("h5")
+        cardSubtitle3.className = "card-subtitle mb-2  fw-bold"
+        cardSubtitle3.innerHTML = "Payout in Items:"
+
+
+        cardBody.appendChild(cardTitle)
+        cardBody.appendChild(cardSubtitle0)
+        cardBody.appendChild(cardSubtitle1)
+        cardBody.appendChild(cardSubtitle2)
+        cardBody.appendChild(cardSubtitle3)
+
+
+        if(calcCrew.get(keys)["Big Bag"] > 0){
+            var cardSubtitleBB = document.createElement("h6")
+            cardSubtitleBB.className = "card-subtitle mb-2 text-muted"
+            cardSubtitleBB.innerHTML = calcCrew.get(keys)["Big Bag"] + "x Big Bags"
+            cardBody.appendChild(cardSubtitleBB)
+        }
+
+        if(calcCrew.get(keys)["Gold"] > 0){
+            var cardSubtitleG = document.createElement("h6")
+            cardSubtitleG.className = "card-subtitle mb-2 text-muted"
+            cardSubtitleG.innerHTML = calcCrew.get(keys)["Gold"] + "x Gold"
+            cardBody.appendChild(cardSubtitleG)
+        }
+
+        if(calcCrew.get(keys)["Small Bag"] > 0){
+            var cardSubtitleSB = document.createElement("h6")
+            cardSubtitleSB.className = "card-subtitle mb-2 text-muted"
+            cardSubtitleSB.innerHTML = calcCrew.get(keys)["Small Bag"] + "x Small Bags"
+            cardBody.appendChild(cardSubtitleSB)
+        }
+
+        if(calcCrew.get(keys)["Watch"] > 0){
+            var cardSubtitleW = document.createElement("h6")
+            cardSubtitleW.className = "card-subtitle mb-2 text-muted"
+            cardSubtitleW.innerHTML = calcCrew.get(keys)["Watch"] + "x Watches"
+            cardBody.appendChild(cardSubtitleW)
+        }
+
+        if(calcCrew.get(keys)["Cash"] > 0){
+            var cardSubtitleW = document.createElement("h6")
+            cardSubtitleW.className = "card-subtitle mb-2 text-muted"
+            cardSubtitleW.innerHTML = calcCrew.get(keys)["Cash"] + "$ Cash"
+            cardBody.appendChild(cardSubtitleW)
+        }
+
+
+
+        
+
+        newCard.appendChild(cardBody)
+        OverviewDiv.appendChild(newCard)
+
+        window.scrollTo(0,document.body.scrollHeight);
+
+    })
 
 }

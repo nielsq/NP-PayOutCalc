@@ -15,4 +15,9 @@ Please send me Feedback. Via github or on Reddit: https://www.reddit.com/user/AF
 I also would love to see some Twitch clips if it gets used.
 
 ## Current Version
-I just released it, no changes yet
+Add overview for Screenshots
+Add Clips of people using it
+
+## Used by
+X: https://clips.twitch.tv/DifficultGoodSnoodSuperVinlin-vxiqrGBqdXnukvy9
+X: https://clips.twitch.tv/DistinctCrypticLocustLitFam-cUjCgEuINI-60qgQ
