@@ -33,6 +33,7 @@ function setValues(public){
         items.set("Red Laptop", 25000)
         items.set("Golden Laptop", 150000)
         items.set("Vault USB Key", 25000)
+        items.set("Pixelpad", 50000)
         items.set("Thermite", 7000)
 
     } else {
@@ -48,6 +49,7 @@ function setValues(public){
         items.set("Red Laptop", 25000)
         items.set("Golden Laptop", 150000)
         items.set("Vault USB Key", 25000)
+        items.set("Pixelpad", 50000)
         items.set("Thermite", 7000)
 
     }
